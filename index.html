@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<script>
+(function(){var t=null;try{t=localStorage.getItem('portal-theme');}catch(e){}
+if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<title>총무 안내 데스크 | 근무 환경·안전 안내 포털</title>
+<!--
+  ※ 편집 안내
+  - 층별 시설, 회의실·주차·편의시설, FAQ, 연락처(내선 ○○○○)는 예시 문구입니다. 실제 내용으로 바꿔 사용하세요.
+  - 자료실: files 폴더에 파일을 넣고 아래 자료실 항목(href·download·용량)을 추가하세요.
+  - 색상은 :root 의 CSS 변수에서 한 번에 바꿀 수 있습니다.
+-->
+<style>
+:root{
+  --ivory:#fbf8ee;
+  --ivory-2:#f3eedd;
+  --green-50:#eef5e6;
+  --green-100:#dfecd2;
+  --green-300:#a9c99a;
+  --green-600:#4a7c4e;
+  --green-700:#3a6540;
+  --green-900:#24402b;
+  --ink:#2a3a2d;
+  --muted:#667566;
+  --line:#d9e2cc;
+  --red:#c62d2d;
+  --red-dark:#9e1f1f;
+  --red-50:#fdecec;
+  --radius:16px;
+  --nav-h:56px;
+  --shadow:0 2px 10px rgba(36,64,43,.08);
+  --surface:#fff;
+  --accent-fg:#3a6540;
+  --deep:#24402b;
+  --nav-bg:rgba(251,248,238,.94);
+  --red-line:#f1c2c2;
+  --red-hover:#fff4f4;
+  color-scheme:light;
+}
+/* ---------- 다크 모드 ---------- */
+:root[data-theme="dark"]{
+  --ivory:#101812;
+  --ivory-2:#18221b;
+  --green-50:#1a2a1e;
+  --green-100:#1f3024;
+  --green-300:#3f6247;
+  --green-600:#3f8a4c;
+  --green-700:#2f7040;
+  --green-900:#e3efdd;
+  --ink:#e4eee2;
+  --muted:#a6b8a8;
+  --line:#2c3d30;
+  --red:#c62d2d;
+  --red-dark:#ff9a9a;
+  --red-50:#2f1819;
+  --shadow:0 2px 10px rgba(0,0,0,.35);
+  --surface:#18241b;
+  --accent-fg:#8fd09a;
+  --deep:#0b120d;
+  --nav-bg:rgba(16,24,18,.94);
+  --red-line:#6a3030;
+  --red-hover:#3a1d1e;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--ivory);color:var(--ink);
+  font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  line-height:1.65;font-size:16px;-webkit-text-size-adjust:100%;
+}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* ---------- 헤더 ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--green-100) 0%,var(--ivory) 70%);
+  border-bottom:1px solid var(--line);
+  padding:56px 0 44px;
+}
+.hero .eyebrow{display:inline-block;font-size:.85rem;font-weight:600;letter-spacing:.04em;color:var(--accent-fg);background:var(--surface);border:1px solid var(--green-300);border-radius:999px;padding:4px 14px;margin-bottom:14px}
+.hero h1{margin:0 0 10px;font-size:clamp(1.9rem,5vw,2.7rem);color:var(--green-900);letter-spacing:-.02em;line-height:1.25}
+.hero p{margin:0;color:var(--muted);font-size:1.05rem;max-width:620px}
+
+/* ---------- 상단 고정 메뉴 ---------- */
+.topnav{
+  position:sticky;top:0;z-index:50;
+  background:var(--nav-bg);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.topnav .wrap{display:flex;align-items:center;gap:6px;height:var(--nav-h);overflow-x:auto;scrollbar-width:none}
+.topnav .wrap::-webkit-scrollbar{display:none}
+.nav-menu{display:contents}
+.topnav a{
+  flex:0 0 auto;text-decoration:none;font-weight:600;font-size:.95rem;color:var(--green-900);
+  padding:8px 14px;border-radius:999px;transition:background .15s,color .15s;white-space:nowrap;
+}
+.topnav a:hover{background:var(--green-100)}
+.topnav a.active{background:var(--green-700);color:#fff}
+.topnav a.sos{color:var(--red-dark)}
+.topnav a.sos:hover{background:var(--red-50)}
+.topnav a.sos.active{background:var(--red);color:#fff}
+.nav-toggle,.nav-cur{display:none}
+.theme-btn{
+  flex:0 0 auto;margin-left:auto;width:40px;height:40px;display:inline-grid;place-items:center;
+  border:1.5px solid var(--green-300);border-radius:50%;background:var(--surface);cursor:pointer;font-size:1.1rem;line-height:1;
+}
+.theme-btn:hover{background:var(--green-100)}
+.to-top{
+  position:fixed;right:18px;bottom:20px;z-index:60;width:46px;height:46px;border-radius:50%;
+  border:none;background:var(--green-700);color:#fff;font-size:1.3rem;font-weight:700;line-height:1;cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .2s,transform .2s,visibility .2s,background .15s;
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{background:var(--deep)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #6aa56f;outline-offset:2px}
+
+/* ---------- 공통 섹션 ---------- */
+section.block{padding:56px 0 8px;scroll-margin-top:calc(var(--nav-h) + 8px)}
+section.block h2{margin:0 0 6px;font-size:1.6rem;color:var(--green-900);letter-spacing:-.01em}
+section.block h2::before{content:"";display:inline-block;width:6px;height:1.1em;background:var(--green-600);border-radius:3px;margin-right:10px;vertical-align:-.15em}
+.lead{margin:0 0 22px;color:var(--muted)}
+h3{margin:28px 0 12px;font-size:1.15rem;color:var(--green-900)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* ---------- 시설 안내 ---------- */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th,td{padding:13px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{background:var(--green-100);color:var(--green-900);font-size:.92rem;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:var(--ivory)}
+td.floor{font-weight:700;color:var(--accent-fg);white-space:nowrap}
+.fac-card h4{margin:0 0 4px;font-size:1.1rem;color:var(--green-900)}
+.fac-card .tag{display:inline-block;font-size:.78rem;font-weight:600;color:var(--accent-fg);background:var(--green-50);border:1px solid var(--green-300);border-radius:999px;padding:1px 10px;margin-bottom:10px}
+.fac-card ul{margin:0;padding-left:18px;color:var(--ink)}
+.fac-card li{margin:4px 0}
+
+/* ---------- 신청 절차(탭) ---------- */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{
+  border:1px solid var(--green-300);background:var(--surface);border-radius:999px;padding:9px 20px;font-weight:600;cursor:pointer;color:var(--green-900);
+  transition:background .15s,color .15s;
+}
+.tab:hover{background:var(--green-50)}
+.tab[aria-selected="true"]{background:var(--green-700);border-color:var(--green-700);color:#fff}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+.steps li::before{content:counter(s);flex:0 0 32px;height:32px;border-radius:50%;background:var(--green-600);color:#fff;font-weight:700;display:grid;place-items:center}
+.steps b{display:block;color:var(--green-900)}
+.steps span{color:var(--muted);font-size:.95rem}
+.note{margin-top:14px;font-size:.92rem;color:var(--muted);background:var(--green-50);border-radius:12px;padding:10px 14px}
+[hidden]{display:none!important}
+
+/* ---------- 비상 대응 (레드 포인트) ---------- */
+#emergency{
+  background:var(--red-50);border-top:4px solid var(--red);border-bottom:1px solid var(--red-line);
+  margin-top:56px;padding-top:44px;padding-bottom:44px;
+}
+#emergency h2{color:var(--red-dark)}
+#emergency h2::before{background:var(--red)}
+.sos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sos-btn{
+  border:2px solid var(--red);background:var(--surface);color:var(--red-dark);border-radius:var(--radius);
+  padding:18px 8px;font-size:1.15rem;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
+  transition:transform .1s,background .15s,color .15s;
+}
+.sos-btn .ico{font-size:1.9rem;line-height:1}
+.sos-btn:hover{background:var(--red-hover)}
+.sos-btn:active{transform:scale(.98)}
+.sos-btn[aria-pressed="true"]{background:var(--red);color:#fff}
+.sos-panel{margin-top:16px;background:var(--surface);border:2px solid var(--red);border-radius:var(--radius);padding:24px;min-height:120px}
+.sos-panel .placeholder{margin:0;color:var(--muted);font-size:1.05rem;text-align:center;padding:22px 0}
+.sos-panel h3{margin:0 0 4px;font-size:1.7rem;color:var(--red-dark)}
+.sos-panel .first{font-size:1.2rem;font-weight:700;margin:0 0 14px}
+.sos-panel ol{margin:0;padding-left:0;list-style:none;counter-reset:a;display:grid;gap:10px}
+.sos-panel li{counter-increment:a;display:flex;gap:12px;font-size:1.25rem;font-weight:600;line-height:1.5}
+.sos-panel li::before{content:counter(a);flex:0 0 34px;height:34px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;display:grid;place-items:center;font-size:1.05rem;margin-top:2px}
+.sos-panel .warn{margin:16px 0 0;padding:10px 14px;background:var(--red-50);border-radius:10px;color:var(--red-dark);font-weight:700}
+.contacts h3{color:var(--red-dark)}
+.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.contact{background:var(--surface);border:1px solid var(--red-line);border-radius:14px;padding:14px 16px}
+.contact small{display:block;color:var(--muted);font-size:.85rem}
+.contact strong{display:block;font-size:1.5rem;color:var(--red-dark);letter-spacing:.01em}
+.contact a{text-decoration:none}
+
+/* ---------- 계산기 ---------- */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:600;margin-bottom:6px;color:var(--green-900)}
+.input-unit{display:flex;align-items:center;border:1.5px solid var(--green-300);background:var(--surface);border-radius:12px;overflow:hidden}
+.input-unit:focus-within{border-color:var(--green-600);box-shadow:0 0 0 3px rgba(74,124,78,.2)}
+.input-unit input{flex:1;min-width:0;border:0;padding:12px 14px;font-size:1.05rem;background:transparent;color:var(--ink)}
+.input-unit input:focus{outline:none}
+.input-unit span{padding:0 14px;color:var(--muted);font-size:.95rem;white-space:nowrap}
+.check{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:500}
+.check input{width:20px;height:20px;accent-color:var(--green-700)}
+.result{background:var(--green-700);color:#fff;border-radius:var(--radius);padding:24px;text-align:center}
+.result .label{opacity:.85;font-size:.95rem}
+.result .amount{font-size:2.3rem;font-weight:800;margin:4px 0 12px;letter-spacing:-.01em;word-break:keep-all}
+.result .detail{display:grid;gap:4px;font-size:.95rem;opacity:.92;border-top:1px solid rgba(255,255,255,.3);padding-top:12px}
+.result .msg{margin:0;opacity:.9}
+.small{font-size:.88rem;color:var(--muted);margin-top:12px}
+
+/* ---------- FAQ ---------- */
+.search{position:relative;margin-bottom:14px}
+.search input{width:100%;padding:13px 16px 13px 44px;border:1.5px solid var(--green-300);border-radius:999px;font-size:1rem;background:var(--surface);color:var(--ink)}
+.search input:focus{outline:none;border-color:var(--green-600);box-shadow:0 0 0 3px rgba(74,124,78,.2)}
+.search::before{content:"🔍";position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:1rem}
+.cats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.chip{border:1.5px solid var(--green-300);background:var(--surface);color:var(--accent-fg);padding:8px 16px;border-radius:999px;font:inherit;font-size:.92rem;font-weight:700;cursor:pointer;transition:background .15s,color .15s}
+.chip:hover{background:var(--green-50)}
+.chip[aria-pressed="true"]{background:var(--green-700);border-color:var(--green-700);color:#fff}
+.chip:focus-visible{outline:3px solid rgba(74,124,78,.35);outline-offset:2px}
+.faq-list{display:grid;gap:10px}
+details.faq{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+details.faq summary{cursor:pointer;padding:15px 48px 15px 18px;font-weight:600;list-style:none;position:relative;color:var(--green-900)}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--accent-fg);font-weight:400}
+details.faq[open] summary::after{content:"−"}
+details.faq[open] summary{background:var(--green-50)}
+details.faq .ans{padding:14px 18px 16px;color:var(--ink);border-top:1px solid var(--line)}
+details.faq .cat{display:inline-block;margin-right:10px;padding:2px 10px;border-radius:999px;background:var(--green-100);color:var(--accent-fg);font-size:.78rem;font-weight:700;vertical-align:1px;white-space:nowrap}
+details.faq[open] .cat{background:var(--surface)}
+.empty{text-align:center;color:var(--muted);padding:24px}
+
+/* ---------- 자료실 ---------- */
+.dl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.dl-list{grid-template-columns:1fr}
+.dl .meta{margin-top:4px;font-size:.82rem}
+.dl{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.dl h4{margin:0 0 2px;color:var(--green-900)}
+.dl p{margin:0;color:var(--muted);font-size:.9rem}
+.btn{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700;
+  background:var(--green-700);color:#fff;padding:10px 18px;border-radius:999px;transition:background .15s;
+}
+.btn:hover{background:var(--deep)}
+
+footer{margin-top:64px;background:var(--deep);color:#cfe0c8;padding:28px 0;font-size:.9rem}
+footer strong{color:#fff}
+
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;
+  background:var(--deep);color:#fff;padding:12px 20px;border-radius:999px;font-size:.95rem;z-index:99;transition:.25s;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- 반응형 ---------- */
+@media (max-width:860px){
+  .grid3{grid-template-columns:1fr}
+  .sos-grid,.contact-grid{grid-template-columns:repeat(2,1fr)}
+  .calc{grid-template-columns:1fr}
+  .dl-grid{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .wrap{padding:0 16px}
+  .hero{padding:40px 0 32px}
+  section.block{padding-top:44px}
+  section.block h2{font-size:1.4rem}
+  .sos-panel h3{font-size:1.45rem}
+  .sos-panel li{font-size:1.12rem}
+  .result .amount{font-size:1.9rem}
+  .dl{flex-direction:column;align-items:stretch}
+  .btn{justify-content:center}
+}
+/* 모바일: 햄버거 메뉴 */
+@media (max-width:640px){
+  .topnav .wrap{overflow:visible;position:relative;justify-content:space-between}
+  .nav-cur{display:block;margin-right:auto;font-weight:700;color:var(--green-900);font-size:1rem}
+  .theme-btn{margin-left:0;margin-right:8px;order:1}
+  .nav-toggle{order:2}
+  .topnav .wrap{justify-content:flex-end}
+  .topnav.at-sos .nav-cur{color:var(--red-dark)}
+  .nav-toggle{
+    display:inline-flex;flex-direction:column;justify-content:center;gap:5px;
+    width:44px;height:44px;padding:0 11px;border:1.5px solid var(--green-300);border-radius:12px;
+    background:var(--surface);cursor:pointer;
+  }
+  .nav-toggle span{display:block;height:2px;border-radius:2px;background:var(--green-900);transition:transform .2s,opacity .2s}
+  .topnav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .topnav.open .nav-toggle span:nth-child(2){opacity:0}
+  .topnav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav-menu{
+    display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:2px;
+    padding:8px 16px 12px;background:var(--ivory);border-bottom:1px solid var(--line);
+    box-shadow:0 10px 24px rgba(36,64,43,.12);
+  }
+  .topnav.open .nav-menu{display:flex}
+  .nav-menu a{padding:13px 16px;font-size:1rem;border-radius:12px;white-space:normal}
+}
+@media print{.topnav,.toast,.to-top{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ===== 홈 / 헤더 ===== -->
+<header class="hero" id="home">
+  <div class="wrap">
+    <span class="eyebrow">근무 환경 · 안전 안내 포털</span>
+    <h1>총무 안내 데스크</h1>
+    <p>사무 공간 이용부터 각종 신청, 비상 상황 대응까지 필요한 안내를 한곳에서 확인하세요.</p>
+  </div>
+</header>
+
+<!-- ===== 상단 고정 메뉴 ===== -->
+<nav class="topnav" id="topnav" aria-label="주요 메뉴">
+  <div class="wrap">
+    <span class="nav-cur" id="navCur" aria-live="polite">홈</span>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
+    <div class="nav-menu" id="navMenu">
+    <a href="#home" data-target="home">홈</a>
+    <a href="#facilities" data-target="facilities">시설 안내</a>
+    <a href="#process" data-target="process">신청 절차</a>
+    <a href="#emergency" data-target="emergency" class="sos">비상 대응</a>
+    <a href="#calculator" data-target="calculator">계산기</a>
+    <a href="#faq" data-target="faq">FAQ</a>
+    <a href="#resources" data-target="resources">자료실</a>
+    </div>
+    <button type="button" class="theme-btn" id="themeBtn" aria-label="다크 모드로 전환" aria-pressed="false" title="다크 모드"><span aria-hidden="true">🌙</span></button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===== 시설 안내 ===== -->
+<section class="block" id="facilities">
+  <div class="wrap">
+    <h2>시설 안내</h2>
+    <p class="lead">층별 주요 시설과 회의실·주차·편의시설 이용 방법입니다.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>층</th><th>주요 시설</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td class="floor">B2~B1</td><td>주차장, 기계·전기실</td><td>B1 장애인·임산부 주차 구역</td></tr>
+          <tr><td class="floor">1F</td><td>로비, 안내 데스크, 방문객 접견실, 카페</td><td>방문객 출입 등록</td></tr>
+          <tr><td class="floor">2F</td><td>총무팀, 대회의실, 휴게실</td><td>사무용품 수령처</td></tr>
+          <tr><td class="floor">3F</td><td>영업·기획 사무 공간, 중회의실</td><td>AED 비치(복도 입구)</td></tr>
+          <tr><td class="floor">4F</td><td>관리·지원 사무 공간, 소회의실</td><td>복합기 설치</td></tr>
+          <tr><td class="floor">5F</td><td>임원실, 이사회의실</td><td>출입 제한 구역</td></tr>
+          <tr><td class="floor">옥상</td><td>흡연 구역, 설비 공간</td><td>비상시 대피 경로 확인</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>이용 안내</h3>
+    <div class="grid3">
+      <article class="card fac-card">
+        <span class="tag">회의실</span>
+        <h4>회의실 이용</h4>
+        <ul>
+          <li>대회의실 20명 · 중회의실 10명 · 소회의실 6명</li>
+          <li>사내 일정 시스템에서 사전 예약</li>
+          <li>사용 후 정리·조명·냉난방 끄기</li>
+        </ul>
+      </article>
+      <article class="card fac-card">
+        <span class="tag">주차</span>
+        <h4>주차 이용</h4>
+        <ul>
+          <li>임직원 차량은 총무팀에 사전 등록</li>
+          <li>방문객은 방문 전 차량번호 사전 등록</li>
+          <li>지정 구역 외 주차 및 이중 주차 금지</li>
+        </ul>
+      </article>
+      <article class="card fac-card">
+        <span class="tag">편의시설</span>
+        <h4>편의시설</h4>
+        <ul>
+          <li>2F 휴게실(전자레인지·정수기)</li>
+          <li>1F 카페, 층별 정수기</li>
+          <li>3F 복도 AED(자동심장충격기)</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 신청 절차 ===== -->
+<section class="block" id="process">
+  <div class="wrap">
+    <h2>신청 절차</h2>
+    <p class="lead">신청 종류를 선택하면 단계별 절차가 표시됩니다.</p>
+
+    <div class="tabs" role="tablist" aria-label="신청 종류">
+      <button class="tab" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true">사무용품</button>
+      <button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1">명함</button>
+      <button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">시설 수리</button>
+      <button class="tab" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1">차량</button>
+    </div>
+
+    <div role="tabpanel" id="panel-0" aria-labelledby="tab-0">
+      <ol class="steps">
+        <li><div><b>필요 품목·수량 확인</b><span>재고와 사용 계획을 확인합니다.</span></div></li>
+        <li><div><b>신청서 작성</b><span>자료실의 신청서 양식에 품목·수량·사용 부서를 작성합니다.</span></div></li>
+        <li><div><b>부서장 승인</b><span>소속 부서장의 승인을 받습니다.</span></div></li>
+        <li><div><b>총무팀 접수</b><span>총무팀에 제출하면 접수 후 수령 일정을 안내합니다.</span></div></li>
+        <li><div><b>수령 및 확인</b><span>2F 총무팀에서 수령하고 수령 확인을 합니다.</span></div></li>
+      </ol>
+    </div>
+    <div role="tabpanel" id="panel-1" aria-labelledby="tab-1" hidden>
+      <ol class="steps">
+        <li><div><b>신청서 작성</b><span>성명·직위·연락처 등 기재 사항을 작성합니다.</span></div></li>
+        <li><div><b>부서장 확인</b><span>직위와 기재 내용을 확인받습니다.</span></div></li>
+        <li><div><b>총무팀 제출·시안 확인</b><span>제출 후 받은 시안의 오탈자를 확인합니다.</span></div></li>
+        <li><div><b>제작</b><span>시안 확정 후 제작에 들어갑니다.</span></div></li>
+        <li><div><b>수령</b><span>완성된 명함을 총무팀에서 수령합니다.</span></div></li>
+      </ol>
+    </div>
+    <div role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
+      <ol class="steps">
+        <li><div><b>증상·위치 확인</b><span>고장 위치(층·호실)와 증상을 정리합니다. 사진이 있으면 함께 전달합니다.</span></div></li>
+        <li><div><b>총무팀 접수</b><span>내선 또는 신청서로 수리를 접수합니다.</span></div></li>
+        <li><div><b>현장 확인</b><span>담당자가 현장을 확인하고 수리 일정을 안내합니다.</span></div></li>
+        <li><div><b>수리 진행</b><span>수리 중에는 해당 구역 이용이 제한될 수 있습니다.</span></div></li>
+        <li><div><b>완료 확인</b><span>수리 후 정상 작동 여부를 확인합니다.</span></div></li>
+      </ol>
+      <p class="note">누전·누수·가스 냄새 등 위험 상황은 신청 대신 <b>비상 대응</b>을 먼저 확인하세요.</p>
+    </div>
+    <div role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden>
+      <ol class="steps">
+        <li><div><b>운행 계획 확인</b><span>운행 일시·목적지·탑승 인원을 확인합니다.</span></div></li>
+        <li><div><b>신청서 작성</b><span>자료실의 차량 신청서 양식을 작성합니다.</span></div></li>
+        <li><div><b>결재</b><span>부서장의 승인을 받습니다.</span></div></li>
+        <li><div><b>차량 배정 통보</b><span>총무팀이 배정 차량과 인수 방법을 안내합니다.</span></div></li>
+        <li><div><b>운행 및 정산</b><span>운행 후 하이패스·주유 내역을 확인하고 정산합니다.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 비상 대응 ===== -->
+<section class="block" id="emergency">
+  <div class="wrap">
+    <h2>비상 대응</h2>
+    <p class="lead">상황 버튼을 누르면 행동 요령이 크게 표시됩니다.</p>
+
+    <div class="sos-grid" role="group" aria-label="비상 상황 선택">
+      <button class="sos-btn" data-key="fire" aria-pressed="false"><span class="ico" aria-hidden="true">🔥</span>화재</button>
+      <button class="sos-btn" data-key="quake" aria-pressed="false"><span class="ico" aria-hidden="true">🌐</span>지진</button>
+      <button class="sos-btn" data-key="power" aria-pressed="false"><span class="ico" aria-hidden="true">💡</span>정전</button>
+      <button class="sos-btn" data-key="medic" aria-pressed="false"><span class="ico" aria-hidden="true">🚑</span>응급환자</button>
+    </div>
+
+    <div class="sos-panel" id="sosPanel" aria-live="polite">
+      <p class="placeholder">위에서 상황을 선택해 주세요.</p>
+    </div>
+
+    <div class="contacts">
+      <h3>비상연락 안내</h3>
+      <div class="contact-grid">
+        <div class="contact"><small>소방·구급</small><strong><a href="tel:119">119</a></strong></div>
+        <div class="contact"><small>경찰</small><strong><a href="tel:112">112</a></strong></div>
+        <div class="contact"><small>방재실(경비)</small><strong>내선 ○○○○</strong></div>
+        <div class="contact"><small>총무팀</small><strong>내선 ○○○○</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 계산기 ===== -->
+<section class="block" id="calculator">
+  <div class="wrap">
+    <h2>출장 경비 계산기</h2>
+    <p class="lead">이동 거리, 연비, 유류비 단가를 입력하면 예상 유류비가 계산됩니다.</p>
+
+    <div class="calc">
+      <div class="card">
+        <div class="field">
+          <label for="km">이동 거리</label>
+          <div class="input-unit"><input id="km" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 120"><span>km</span></div>
+        </div>
+        <div class="field">
+          <label for="eff">연비</label>
+          <div class="input-unit"><input id="eff" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 12.5"><span>km/L</span></div>
+        </div>
+        <div class="field">
+          <label for="price">유류비 단가</label>
+          <div class="input-unit"><input id="price" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 1650"><span>원/L</span></div>
+        </div>
+        <label class="check"><input type="checkbox" id="round"> 왕복으로 계산 (입력 거리 × 2)</label>
+        <p class="small">유류비만 계산하며 통행료·주차비는 포함되지 않습니다. 실제 금액과 다를 수 있습니다.</p>
+      </div>
+
+      <div class="result" aria-live="polite">
+        <div class="label">예상 유류비</div>
+        <div class="amount" id="cost">–</div>
+        <div id="detail"><p class="msg">값을 모두 입력하면 결과가 표시됩니다.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <h2>총무 FAQ</h2>
+    <p class="lead">자주 묻는 질문입니다. 키워드를 입력하거나 카테고리를 눌러 보세요.</p>
+
+    <div class="search"><input id="faqSearch" type="search" placeholder="검색어를 입력하세요 (예: 주차, 명함, 회의실)" aria-label="FAQ 검색"></div>
+
+    <div class="cats" id="faqCats" role="group" aria-label="FAQ 카테고리">
+      <button type="button" class="chip" data-cat="" aria-pressed="true">전체</button>
+      <button type="button" class="chip" data-cat="시설 이용" aria-pressed="false">시설 이용</button>
+      <button type="button" class="chip" data-cat="신청 절차" aria-pressed="false">신청 절차</button>
+      <button type="button" class="chip" data-cat="비상 대응" aria-pressed="false">비상 대응</button>
+      <button type="button" class="chip" data-cat="기타" aria-pressed="false">기타</button>
+    </div>
+
+    <div class="faq-list" id="faqList">
+      <details class="faq"><summary><span class="cat">시설 이용</span>회의실은 어떻게 예약하나요?</summary><div class="ans">사내 시스템에서 예약하며 선착순으로 배정됩니다. 예약 후 사용하지 않게 되면 반드시 취소해 주세요. 사용 후에는 비품과 좌석을 원위치하고 조명·냉난방을 꺼 주세요.</div></details>
+      <details class="faq"><summary><span class="cat">시설 이용</span>대회의실은 누구나 예약할 수 있나요?</summary><div class="ans">2층 대회의실(20명)은 사전 예약이 필수이며, 부서장 승인 후 예약할 수 있습니다. 중회의실은 10명, 소회의실은 6명 규모입니다.</div></details>
+      <details class="faq"><summary><span class="cat">시설 이용</span>외부 방문객이 오면 어떻게 하나요?</summary><div class="ans">방문 전에 방문 등록을 해 주세요. 방문객은 1층 안내데스크에서 출입증을 받고 퇴실 시 반납합니다. 주차가 필요하면 방문 등록 때 함께 신청하며, 총무팀에 방문객 차량번호와 방문 일시를 알려 주시면 됩니다.</div></details>
+      <details class="faq"><summary><span class="cat">신청 절차</span>사무용품은 어떻게 신청하고 언제 받나요?</summary><div class="ans">신청서에 품목·수량·사용 부서를 작성하고 부서장 승인을 받아 총무팀에 제출합니다. 접수 후 주 1회 일괄 배부하며, 2층 총무팀에서 수령합니다. 재고가 없는 품목은 구매 후 별도 안내합니다.</div></details>
+      <details class="faq"><summary><span class="cat">신청 절차</span>명함은 어떤 순서로 제작되고 얼마나 걸리나요?</summary><div class="ans">신청서 작성 → 부서장 확인 → 총무팀 제출·시안 오탈자 확인 → 제작 → 총무팀 수령 순서입니다. 소요 기간은 영업일 기준 수일이며, 정확한 일수는 제작 업체 일정에 따라 접수 시 안내해 드립니다.</div></details>
+      <details class="faq"><summary><span class="cat">신청 절차</span>사무실 시설이 고장 났어요. 어디로 연락하나요?</summary><div class="ans">총무팀 내선으로 위치(층·호실)와 증상을 알려 주세요. 접수 후 현장 확인을 거쳐 처리하며 긴급 건은 우선 처리합니다. 누전·누수·가스 냄새 등 안전과 관련된 고장은 신청 대신 즉시 방재실이나 119로 연락해 주세요.</div></details>
+      <details class="faq"><summary><span class="cat">신청 절차</span>업무용 차량은 어떻게 신청하나요?</summary><div class="ans">사전 예약(선착순) 후 신청서를 작성하고 부서장 승인을 받아 총무팀에 제출합니다. 총무팀이 배정 차량과 인수 방법을 안내하며, 운행 후에는 하이패스·주유 내역을 확인해 정산합니다.</div></details>
+      <details class="faq"><summary><span class="cat">비상 대응</span>화재가 발생하면 어떻게 행동하나요?</summary><div class="ans">① 화재경보기를 누르고 주변에 크게 알립니다. ② 소화기로 끌 수 있는 규모인지 판단하고, 불길이 천장에 닿으면 즉시 대피합니다. ③ 낮은 자세로 벽을 따라 비상계단으로 이동합니다(엘리베이터 사용 금지). ④ 지정 집결지에서 인원을 확인합니다. 소화기는 안전핀을 뽑고, 노즐을 불이 난 곳으로 향하게 하고, 손잡이를 움켜쥐고, 비로 쓸듯이 분사합니다.</div></details>
+      <details class="faq"><summary><span class="cat">비상 대응</span>응급환자가 발생하면 어떻게 하고, AED는 어디에 있나요?</summary><div class="ans">① 어깨를 두드려 의식을 확인합니다. ② 주변 사람을 지목해 119 신고와 AED 가져오기를 부탁합니다. ③ 호흡이 없으면 가슴압박을 시작합니다. ④ 구급대가 도착하면 상황을 설명하고 인계합니다. AED는 3층 복도 입구에 비치되어 있습니다.</div></details>
+      <details class="faq"><summary><span class="cat">비상 대응</span>지진이나 정전이 나면 어떻게 하나요?</summary><div class="ans">지진: 흔들리는 동안 책상 아래에서 머리를 보호하고, 멈추면 전기와 가스를 차단한 뒤 계단으로 대피합니다. 정전: 그 자리에서 잠시 대기하다 비상 조명이 켜지면 안내에 따라 이동하고, 엘리베이터 안이면 비상 버튼으로 연락하고 기다립니다. 작업 중이던 자료는 전원 복구 후 확인하세요.</div></details>
+      <details class="faq"><summary><span class="cat">기타</span>분실물은 어디에서 찾나요?</summary><div class="ans">1F 안내 데스크에서 보관 중인 분실물을 확인할 수 있습니다. 습득물도 안내 데스크에 전달해 주세요.</div></details>
+    </div>
+    <div class="empty" id="faqEmpty" hidden>검색 결과가 없습니다. 다른 검색어나 카테고리를 선택하거나 총무팀으로 문의해 주세요.</div>
+  </div>
+</section>
+
+<!-- ===== 자료실 ===== -->
+<section class="block" id="resources">
+  <div class="wrap">
+    <h2>자료실</h2>
+    <p class="lead">안내 자료를 내려받으세요. 버튼을 누르면 파일이 바로 저장됩니다.</p>
+
+    <div class="dl-grid dl-list">
+      <div class="card dl">
+        <div><h4>사옥 시설 이용 안내서</h4><p>회의실·주차·편의시설 이용 방법과 신청 절차 안내</p><p class="meta">PDF · 222 KB · files/facility-guide.pdf</p></div>
+        <a class="btn" href="files/facility-guide.pdf" download="사옥 시설 이용 안내서.pdf">⬇ 다운로드</a>
+      </div>
+      <div class="card dl">
+        <div><h4>비상 대응 행동 요령</h4><p>화재·지진·정전·응급환자 발생 시 행동 요령</p><p class="meta">PDF · 252 KB · files/emergency-response-guide.pdf</p></div>
+        <a class="btn" href="files/emergency-response-guide.pdf" download="비상 대응 행동 요령.pdf">⬇ 다운로드</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>총무 안내 데스크</strong> · 문의: 총무팀 내선 ○○○○<br>
+    비상 상황에서는 먼저 119(소방·구급) 또는 방재실로 연락하세요.
+  </div>
+</footer>
+
+<button type="button" class="to-top" id="toTop" aria-label="맨 위로 이동" title="맨 위로">↑</button>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  /* ---------- 고정 메뉴 높이 → 스크롤 여백 ---------- */
+  var nav = document.getElementById('topnav');
+  function setNavH(){ document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px'); }
+  setNavH(); window.addEventListener('resize', setNavH);
+
+  /* ---------- 다크 모드 전환 ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  function applyTheme(t, save){
+    root.setAttribute('data-theme', t);
+    var dark = t === 'dark';
+    themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    themeBtn.setAttribute('aria-label', dark ? '라이트 모드로 전환' : '다크 모드로 전환');
+    themeBtn.title = dark ? '라이트 모드' : '다크 모드';
+    themeBtn.firstChild.textContent = dark ? '☀️' : '🌙';
+    if (save) { try { localStorage.setItem('portal-theme', t); } catch(e) {} }
+  }
+  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light', false);
+  themeBtn.addEventListener('click', function(){
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+  });
+
+  /* ---------- 맨 위로 버튼 ---------- */
+  var toTop = document.getElementById('toTop');
+  function toggleTop(){ toTop.classList.toggle('show', window.scrollY > 400); }
+  window.addEventListener('scroll', toggleTop, {passive:true}); toggleTop();
+  toTop.addEventListener('click', function(){ window.scrollTo({top:0}); });
+
+  /* ---------- 모바일 햄버거 메뉴 ---------- */
+  var navToggle = document.getElementById('navToggle');
+  var navCur = document.getElementById('navCur');
+  var mobileMQ = window.matchMedia('(max-width:640px)');
+  function setMenu(open){
+    nav.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+  }
+  navToggle.addEventListener('click', function(){ setMenu(!nav.classList.contains('open')); });
+  nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('click', function(e){ if (!nav.contains(e.target)) setMenu(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); navToggle.focus(); } });
+  mobileMQ.addEventListener('change', function(){ setMenu(false); setNavH(); });
+
+  /* ---------- 현재 위치 메뉴 강조 ---------- */
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var ids = links.map(function(a){ return a.dataset.target; });
+  function onScroll(){
+    var y = window.scrollY + nav.offsetHeight + 60, cur = ids[0];
+    ids.forEach(function(id){
+      var el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top + window.scrollY <= y) cur = id;
+    });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) cur = ids[ids.length - 1];
+    links.forEach(function(a){
+      var on = a.dataset.target === cur;
+      a.classList.toggle('active', on);
+      if (on) {
+        a.setAttribute('aria-current','true');
+        navCur.textContent = a.textContent;
+        nav.classList.toggle('at-sos', a.classList.contains('sos'));
+        if (!mobileMQ.matches) a.scrollIntoView({block:'nearest',inline:'center'});
+      }
+      else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* ---------- 신청 절차 탭 ---------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function selectTab(i, focus){
+    tabs.forEach(function(t, k){
+      var on = k === i;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById('panel-' + k).hidden = !on;
+    });
+    if (focus) tabs[i].focus();
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ selectTab(i); });
+    t.addEventListener('keydown', function(e){
+      var n = tabs.length;
+      if (e.key === 'ArrowRight') { e.preventDefault(); selectTab((i+1)%n, true); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); selectTab((i-1+n)%n, true); }
+      if (e.key === 'Home') { e.preventDefault(); selectTab(0, true); }
+      if (e.key === 'End')  { e.preventDefault(); selectTab(n-1, true); }
+    });
+  });
+
+  /* ---------- 비상 대응 ---------- */
+  var SOS = {
+    fire:{title:'🔥 화재', first:'“불이야!” 큰 소리로 알리고, 119에 신고하세요.', steps:[
+      '화재 경보 발신기를 누르고 주변에 알립니다.',
+      '119 신고: 건물 주소·층·화재 상황을 말합니다.',
+      '초기 화재이고 안전할 때만 소화기로 진화합니다.',
+      '낮은 자세로 젖은 수건 등으로 코와 입을 막고 비상계단으로 대피합니다.',
+      '지정 집결지에서 인원을 확인하고 방재실·총무팀에 보고합니다.'],
+      warn:'엘리베이터는 절대 사용하지 마세요.'},
+    quake:{title:'🌐 지진', first:'흔들리는 동안은 튼튼한 책상 아래로 몸을 숨기세요.', steps:[
+      '머리와 목을 보호하고 책상 다리를 붙잡습니다.',
+      '유리창, 캐비닛, 조명 등 떨어질 물건에서 떨어집니다.',
+      '흔들림이 멈추면 전기·가스를 차단하고 문을 열어 출구를 확보합니다.',
+      '계단으로 대피하며 낙하물에 주의합니다.',
+      '집결지에서 인원을 확인하고 방송·안내에 따릅니다.'],
+      warn:'흔들리는 중에 밖으로 뛰어나가거나 엘리베이터를 타지 마세요.'},
+    power:{title:'💡 정전', first:'침착하게 제자리에서 상황을 확인하세요.', steps:[
+      '비상조명과 휴대전화 조명으로 이동 경로를 확보합니다.',
+      '작업 중인 파일을 저장하고 전자기기 전원을 분리합니다.',
+      '방재실·총무팀에 정전 위치와 범위를 알립니다.',
+      '엘리베이터에 갇혔다면 인터폰·비상호출 버튼을 누르고 기다립니다.',
+      '복구 방송이 나오면 장비 전원을 순서대로 켭니다.'],
+      warn:'엘리베이터 문을 억지로 열거나 탈출을 시도하지 마세요.'},
+    medic:{title:'🚑 응급환자', first:'즉시 119에 신고하고 주변에 도움을 요청하세요.', steps:[
+      '119 신고: 위치(건물·층)와 환자 상태를 말합니다.',
+      '환자의 의식과 호흡을 확인합니다.',
+      '호흡이 없으면 가슴 압박을 시작하고, 다른 사람에게 AED를 가져오도록 요청합니다.',
+      'AED가 도착하면 전원을 켜고 음성 안내에 따릅니다.',
+      '방재실·총무팀에 알려 구급대 진입 경로를 안내합니다.'],
+      warn:'위험 상황이 아니면 환자를 함부로 옮기지 마세요.'}
+  };
+  var panel = document.getElementById('sosPanel');
+  var sosBtns = Array.prototype.slice.call(document.querySelectorAll('.sos-btn'));
+  sosBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var d = SOS[b.dataset.key];
+      sosBtns.forEach(function(x){ x.setAttribute('aria-pressed', x === b); });
+      panel.innerHTML = '';
+      var h = document.createElement('h3'); h.textContent = d.title;
+      var f = document.createElement('p'); f.className = 'first'; f.textContent = d.first;
+      var ol = document.createElement('ol');
+      d.steps.forEach(function(s){ var li = document.createElement('li'); li.textContent = s; ol.appendChild(li); });
+      var w = document.createElement('p'); w.className = 'warn'; w.textContent = '⚠ ' + d.warn;
+      panel.appendChild(h); panel.appendChild(f); panel.appendChild(ol); panel.appendChild(w);
+    });
+  });
+
+  /* ---------- 출장 경비 계산기 ---------- */
+  var km = document.getElementById('km'), eff = document.getElementById('eff'),
+      price = document.getElementById('price'), round = document.getElementById('round'),
+      cost = document.getElementById('cost'), detail = document.getElementById('detail');
+  function fmt(n, d){ return n.toLocaleString('ko-KR', {maximumFractionDigits: d || 0}); }
+  function calc(){
+    var k = parseFloat(km.value), e = parseFloat(eff.value), p = parseFloat(price.value);
+    if (!(k > 0) || !(e > 0) || !(p >= 0) || price.value === ''){
+      cost.textContent = '–';
+      detail.innerHTML = '<p class="msg">' + ((km.value || eff.value || price.value) && (eff.value !== '' && !(e > 0))
+        ? '연비는 0보다 큰 값을 입력해 주세요.' : '값을 모두 입력하면 결과가 표시됩니다.') + '</p>';
+      return;
+    }
+    var dist = k * (round.checked ? 2 : 1), liters = dist / e, won = Math.round(liters * p);
+    cost.textContent = fmt(won) + '원';
+    detail.className = 'detail';
+    detail.innerHTML = '<div>적용 거리 ' + fmt(dist, 1) + ' km' + (round.checked ? ' (왕복)' : ' (편도)') + '</div>' +
+      '<div>예상 연료 사용량 약 ' + fmt(liters, 1) + ' L</div>' +
+      '<div>' + fmt(dist, 1) + ' ÷ ' + fmt(e, 2) + ' × ' + fmt(p, 2) + '원 (원 미만 반올림)</div>';
+  }
+  [km, eff, price].forEach(function(el){ el.addEventListener('input', calc); });
+  round.addEventListener('change', calc);
+
+  /* ---------- FAQ 검색 + 카테고리 ---------- */
+  var items = Array.prototype.slice.call(document.querySelectorAll('#faqList .faq'));
+  var empty = document.getElementById('faqEmpty');
+  var search = document.getElementById('faqSearch');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('#faqCats .chip'));
+  var curCat = '';
+  function filterFaq(){
+    var q = search.value.trim().toLowerCase(), shown = 0;
+    items.forEach(function(it){
+      var cat = it.querySelector('.cat').textContent.trim();
+      var hit = (!curCat || cat === curCat) && (!q || it.textContent.toLowerCase().indexOf(q) > -1);
+      it.hidden = !hit;
+      if (hit) shown++;
+      it.open = !!q && hit;
+    });
+    empty.hidden = shown > 0;
+  }
+  search.addEventListener('input', filterFaq);
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      curCat = c.getAttribute('data-cat');
+      chips.forEach(function(x){ x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+      filterFaq();
+    });
+  });
+})();
+</script>
+</body>
+</html>
